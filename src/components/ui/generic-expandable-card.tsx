@@ -226,15 +226,6 @@ export function GenericExpandableCard({
                       </div>
                     </div>
                   )}
-                  
-                  {/* Mobile swipe hint */}
-                  {activeCard.videos && activeCard.videos.length > 1 && (
-                    <div className="absolute bottom-[140px] left-0 right-0 flex justify-center md:hidden">
-                      <div className="bg-black/40 backdrop-blur-sm text-white/80 text-xs px-3 py-1.5 rounded-full">
-                        Swipe to change videos
-                      </div>
-                    </div>
-                  )}
                 </div>
               ) : (
                 // Fallback for cards without videos, using the main card image

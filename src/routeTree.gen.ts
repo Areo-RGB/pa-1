@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedVideosImport } from './routes/_authenticated/videos'
 import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedStatistikenIndexImport } from './routes/_authenticated/statistiken/index'
@@ -33,6 +34,12 @@ const AuthenticatedRouteRoute = AuthenticatedRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+
+const AuthenticatedVideosRoute = AuthenticatedVideosImport.update({
+  id: '/videos',
+  path: '/videos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -103,6 +110,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/_authenticated/videos': {
+      id: '/_authenticated/videos'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof AuthenticatedVideosImport
+      parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/': {
       id: '/_authenticated/'
@@ -180,6 +194,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedVideosRoute: typeof AuthenticatedVideosRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedChatsPerformanceDashboardRoute: typeof AuthenticatedChatsPerformanceDashboardRoute
   AuthenticatedStatistikenPerformanceDashboardRoute: typeof AuthenticatedStatistikenPerformanceDashboardRoute
@@ -193,6 +208,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedVideosRoute: AuthenticatedVideosRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedChatsPerformanceDashboardRoute:
     AuthenticatedChatsPerformanceDashboardRoute,
@@ -212,6 +228,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteRouteWithChildren
+  '/videos': typeof AuthenticatedVideosRoute
   '/': typeof AuthenticatedIndexRoute
   '/chats/performance-dashboard': typeof AuthenticatedChatsPerformanceDashboardRoute
   '/statistiken/performance-dashboard': typeof AuthenticatedStatistikenPerformanceDashboardRoute
@@ -225,6 +242,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/videos': typeof AuthenticatedVideosRoute
   '/': typeof AuthenticatedIndexRoute
   '/chats/performance-dashboard': typeof AuthenticatedChatsPerformanceDashboardRoute
   '/statistiken/performance-dashboard': typeof AuthenticatedStatistikenPerformanceDashboardRoute
@@ -240,6 +258,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/_authenticated/videos': typeof AuthenticatedVideosRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/chats/performance-dashboard': typeof AuthenticatedChatsPerformanceDashboardRoute
   '/_authenticated/statistiken/performance-dashboard': typeof AuthenticatedStatistikenPerformanceDashboardRoute
@@ -256,6 +275,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/videos'
     | '/'
     | '/chats/performance-dashboard'
     | '/statistiken/performance-dashboard'
@@ -268,6 +288,7 @@ export interface FileRouteTypes {
     | '/users'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/videos'
     | '/'
     | '/chats/performance-dashboard'
     | '/statistiken/performance-dashboard'
@@ -281,6 +302,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
+    | '/_authenticated/videos'
     | '/_authenticated/'
     | '/_authenticated/chats/performance-dashboard'
     | '/_authenticated/statistiken/performance-dashboard'
@@ -318,6 +340,7 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated/route.tsx",
       "children": [
+        "/_authenticated/videos",
         "/_authenticated/",
         "/_authenticated/chats/performance-dashboard",
         "/_authenticated/statistiken/performance-dashboard",
@@ -329,6 +352,10 @@ export const routeTree = rootRoute
         "/_authenticated/tasks/",
         "/_authenticated/users/"
       ]
+    },
+    "/_authenticated/videos": {
+      "filePath": "_authenticated/videos.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",

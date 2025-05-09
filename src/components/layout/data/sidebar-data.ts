@@ -1,7 +1,7 @@
 import {
   IconLayoutDashboard,
 } from '@tabler/icons-react'
-import { AudioWaveform, GalleryVerticalEnd, BarChart } from 'lucide-react'
+import { AudioWaveform, GalleryVerticalEnd, BarChart, Video } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -30,6 +30,11 @@ export const sidebarData: SidebarData = {
           title: 'Home',
           url: '/',
           icon: IconLayoutDashboard,
+        },
+        {
+          title: 'Videos',
+          url: '/videos',
+          icon: Video,
         },
         {
           title: 'Finley',
