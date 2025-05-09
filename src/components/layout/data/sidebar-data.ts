@@ -1,7 +1,7 @@
 import {
   IconLayoutDashboard,
 } from '@tabler/icons-react'
-import { AudioWaveform, GalleryVerticalEnd, Video, BarChart } from 'lucide-react'
+import { AudioWaveform, GalleryVerticalEnd, BarChart } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {

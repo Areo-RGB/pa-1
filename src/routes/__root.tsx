@@ -12,7 +12,3 @@ function RootComponent() {
     </React.Fragment>
   )
 }
-t />
-    </React.Fragment>
-  )
-}
