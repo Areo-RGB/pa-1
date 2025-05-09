@@ -51,9 +51,9 @@ export function HeaderTeamSwitcher({
     
     // Navigate based on team name
     if (team.name === 'Finley') {
-      navigate({ to: '/tasks' })
+      navigate({ to: '/finley' })
     } else if (team.name === 'Bent') {
-      navigate({ to: '/users' })
+      navigate({ to: '/bent' })
     }
   }
 

@@ -32,11 +32,6 @@ export const sidebarData: SidebarData = {
           icon: IconLayoutDashboard,
         },
         {
-          title: 'Fortschritt',
-          url: '/tasks',
-          icon: Video,
-        },
-        {
           title: 'Finley',
           url: '/finley',
           icon: GalleryVerticalEnd,

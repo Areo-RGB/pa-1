@@ -1,38 +1,18 @@
-import { QueryClient } from '@tanstack/react-query'
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-import { Toaster } from '@/components/ui/sonner'
-import { NavigationProgress } from '@/components/navigation-progress'
-// import GeneralError from '@/features/errors/general-error'
-// import NotFoundError from '@/features/errors/not-found-error'
+import * as React from 'react'
+import { Outlet, createRootRoute } from '@tanstack/react-router'
 
-function SimpleNotFound() {
-  return <div>404 - Page Not Found</div>;
-}
-
-function SimpleError() {
-  return <div>Oops - An Error Occurred</div>;
-}
-
-export const Route = createRootRouteWithContext<{
-  queryClient: QueryClient
-}>()({
-  component: () => {
-    return (
-      <>
-        <NavigationProgress />
-        <Outlet />
-        <Toaster duration={50000} />
-        {import.meta.env.MODE === 'development' && (
-          <>
-            <ReactQueryDevtools buttonPosition='bottom-left' />
-            <TanStackRouterDevtools position='bottom-right' />
-          </>
-        )}
-      </>
-    )
-  },
-  notFoundComponent: SimpleNotFound,
-  errorComponent: SimpleError,
+export const Route = createRootRoute({
+  component: RootComponent,
 })
+
+function RootComponent() {
+  return (
+    <React.Fragment>
+      <Outlet />
+    </React.Fragment>
+  )
+}
+t />
+    </React.Fragment>
+  )
+}
