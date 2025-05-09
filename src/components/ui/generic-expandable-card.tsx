@@ -312,27 +312,27 @@ export function GenericExpandableCard({
             tabIndex={0} // Added tabIndex for keyboard accessibility
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveCard(card);}} // Keyboard activation
           >
-            <div className="flex gap-4 flex-col md:flex-row items-center"> {/* items-center added */}
+            <div className="flex gap-4 flex-col md:flex-row items-center md:items-start flex-grow">
               <motion.div layoutId={`image-${card.id}-${componentId}`}>
                 <img
-                  width={100} // Default width for list item image
-                  height={100} // Default height for list item image
+                  width={100}
+                  height={100}
                   src={card.src}
                   alt={card.title}
-                  className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
+                  className="h-16 w-16 rounded-lg object-cover object-top flex-shrink-0"
                 />
               </motion.div>
-              <div className="text-center md:text-left"> {/* Ensure text alignment */}
+              <div className="text-center md:text-left flex-grow md:ml-4">
                 <motion.h3
                   layoutId={`title-${card.id}-${componentId}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200"
+                  className="text-lg font-semibold text-neutral-800 dark:text-neutral-200"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.p
                   // Consider if description needs a layoutId or if it's too much
                   // layoutId={`description-${card.id}-${componentId}`} 
-                  className="text-neutral-600 dark:text-neutral-400"
+                  className="text-sm text-neutral-500 dark:text-neutral-500 mt-1 line-clamp-2"
                 >
                   {card.description}
                 </motion.p>
@@ -340,7 +340,7 @@ export function GenericExpandableCard({
             </div>
             <motion.button
               layoutId={`button-cta-${card.id}-${componentId}`} // Unique layoutId
-              className={`px-4 py-2 text-sm rounded-full font-bold bg-gray-100 dark:bg-neutral-600 dark:text-white text-black mt-4 md:mt-0 ${getThemeColorClasses("hover-bg")} ${getThemeColorClasses("hover-text")}`}
+              className={`px-4 py-2 text-sm rounded-full font-medium bg-transparent border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 mt-4 md:mt-0 ${getThemeColorClasses("hover-bg")} ${getThemeColorClasses("hover-text")} hover:border-transparent transition-colors duration-200`}
             >
               {card.ctaText}
             </motion.button>

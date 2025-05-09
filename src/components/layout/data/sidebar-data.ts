@@ -1,7 +1,7 @@
 import {
   IconLayoutDashboard,
 } from '@tabler/icons-react'
-import { AudioWaveform, GalleryVerticalEnd, BarChart, Video } from 'lucide-react'
+import { BarChart, Video } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -11,16 +11,7 @@ export const sidebarData: SidebarData = {
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
-    {
-      name: 'Finley',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Bent',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
+    // Removed Finley and Bent entries from teams array
   ],
   navGroups: [
     {
@@ -36,16 +27,8 @@ export const sidebarData: SidebarData = {
           url: '/videos',
           icon: Video,
         },
-        {
-          title: 'Finley',
-          url: '/finley',
-          icon: GalleryVerticalEnd,
-        },
-        {
-          title: 'Bent',
-          url: '/bent',
-          icon: AudioWaveform,
-        },
+        // Removed Finley entry
+        // Removed Bent entry
         {
           title: 'Statistik',
           url: '/users',
