@@ -16,7 +16,9 @@ import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index
 import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedStatistikenIndexImport } from './routes/_authenticated/statistiken/index'
+import { Route as AuthenticatedFinleyIndexImport } from './routes/_authenticated/finley/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
+import { Route as AuthenticatedBentIndexImport } from './routes/_authenticated/bent/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedStatistikenPerformanceDashboardImport } from './routes/_authenticated/statistiken/performance-dashboard'
 import { Route as AuthenticatedChatsPerformanceDashboardImport } from './routes/_authenticated/chats/performance-dashboard'
@@ -53,9 +55,21 @@ const AuthenticatedStatistikenIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
+const AuthenticatedFinleyIndexRoute = AuthenticatedFinleyIndexImport.update({
+  id: '/finley/',
+  path: '/finley/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexImport.update({
   id: '/chats/',
   path: '/chats/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+
+const AuthenticatedBentIndexRoute = AuthenticatedBentIndexImport.update({
+  id: '/bent/',
+  path: '/bent/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -118,11 +132,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/bent/': {
+      id: '/_authenticated/bent/'
+      path: '/bent'
+      fullPath: '/bent'
+      preLoaderRoute: typeof AuthenticatedBentIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
       fullPath: '/chats'
       preLoaderRoute: typeof AuthenticatedChatsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/finley/': {
+      id: '/_authenticated/finley/'
+      path: '/finley'
+      fullPath: '/finley'
+      preLoaderRoute: typeof AuthenticatedFinleyIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/statistiken/': {
@@ -156,7 +184,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedChatsPerformanceDashboardRoute: typeof AuthenticatedChatsPerformanceDashboardRoute
   AuthenticatedStatistikenPerformanceDashboardRoute: typeof AuthenticatedStatistikenPerformanceDashboardRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
+  AuthenticatedBentIndexRoute: typeof AuthenticatedBentIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
+  AuthenticatedFinleyIndexRoute: typeof AuthenticatedFinleyIndexRoute
   AuthenticatedStatistikenIndexRoute: typeof AuthenticatedStatistikenIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
@@ -169,7 +199,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedStatistikenPerformanceDashboardRoute:
     AuthenticatedStatistikenPerformanceDashboardRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
+  AuthenticatedBentIndexRoute: AuthenticatedBentIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
+  AuthenticatedFinleyIndexRoute: AuthenticatedFinleyIndexRoute,
   AuthenticatedStatistikenIndexRoute: AuthenticatedStatistikenIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
@@ -184,7 +216,9 @@ export interface FileRoutesByFullPath {
   '/chats/performance-dashboard': typeof AuthenticatedChatsPerformanceDashboardRoute
   '/statistiken/performance-dashboard': typeof AuthenticatedStatistikenPerformanceDashboardRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/bent': typeof AuthenticatedBentIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
+  '/finley': typeof AuthenticatedFinleyIndexRoute
   '/statistiken': typeof AuthenticatedStatistikenIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -195,7 +229,9 @@ export interface FileRoutesByTo {
   '/chats/performance-dashboard': typeof AuthenticatedChatsPerformanceDashboardRoute
   '/statistiken/performance-dashboard': typeof AuthenticatedStatistikenPerformanceDashboardRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/bent': typeof AuthenticatedBentIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
+  '/finley': typeof AuthenticatedFinleyIndexRoute
   '/statistiken': typeof AuthenticatedStatistikenIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -208,7 +244,9 @@ export interface FileRoutesById {
   '/_authenticated/chats/performance-dashboard': typeof AuthenticatedChatsPerformanceDashboardRoute
   '/_authenticated/statistiken/performance-dashboard': typeof AuthenticatedStatistikenPerformanceDashboardRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
+  '/_authenticated/bent/': typeof AuthenticatedBentIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
+  '/_authenticated/finley/': typeof AuthenticatedFinleyIndexRoute
   '/_authenticated/statistiken/': typeof AuthenticatedStatistikenIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
@@ -222,7 +260,9 @@ export interface FileRouteTypes {
     | '/chats/performance-dashboard'
     | '/statistiken/performance-dashboard'
     | '/apps'
+    | '/bent'
     | '/chats'
+    | '/finley'
     | '/statistiken'
     | '/tasks'
     | '/users'
@@ -232,7 +272,9 @@ export interface FileRouteTypes {
     | '/chats/performance-dashboard'
     | '/statistiken/performance-dashboard'
     | '/apps'
+    | '/bent'
     | '/chats'
+    | '/finley'
     | '/statistiken'
     | '/tasks'
     | '/users'
@@ -243,7 +285,9 @@ export interface FileRouteTypes {
     | '/_authenticated/chats/performance-dashboard'
     | '/_authenticated/statistiken/performance-dashboard'
     | '/_authenticated/apps/'
+    | '/_authenticated/bent/'
     | '/_authenticated/chats/'
+    | '/_authenticated/finley/'
     | '/_authenticated/statistiken/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
@@ -278,7 +322,9 @@ export const routeTree = rootRoute
         "/_authenticated/chats/performance-dashboard",
         "/_authenticated/statistiken/performance-dashboard",
         "/_authenticated/apps/",
+        "/_authenticated/bent/",
         "/_authenticated/chats/",
+        "/_authenticated/finley/",
         "/_authenticated/statistiken/",
         "/_authenticated/tasks/",
         "/_authenticated/users/"
@@ -300,8 +346,16 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/apps/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/bent/": {
+      "filePath": "_authenticated/bent/index.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/chats/": {
       "filePath": "_authenticated/chats/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/finley/": {
+      "filePath": "_authenticated/finley/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/statistiken/": {

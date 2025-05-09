@@ -37,6 +37,16 @@ export const sidebarData: SidebarData = {
           icon: Video,
         },
         {
+          title: 'Finley',
+          url: '/finley',
+          icon: GalleryVerticalEnd,
+        },
+        {
+          title: 'Bent',
+          url: '/bent',
+          icon: AudioWaveform,
+        },
+        {
           title: 'Statistik',
           url: '/users',
           icon: BarChart,
