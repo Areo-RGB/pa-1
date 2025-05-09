@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "id": "err-001",
+      "description": "Example error: React component rendering null",
+      "context": "When a React component unexpectedly renders nothing",
+      "solution": "Check if the component is receiving the expected props and verify conditional rendering logic",
+      "timestamp": "2023-10-01T12:34:56Z"
+    }
+  ],
+  "lastUpdated": "2023-10-01T12:34:56Z"
+} 

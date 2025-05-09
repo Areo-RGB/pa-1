@@ -1,0 +1,42 @@
+name: Deploy to DigitalOcean
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DIGITALOCEAN_ACCESS_TOKEN: dop_v1_e1b4de15743f1ae31dop_v1_e1b4de15743f1ae3146734084d55445b397ea8c0d9ae1ea1d01429c80a3627d646734084d55445b397ea8c0d9ae1ea1d01429c80a3627d6
+      DIGITALOCEAN_APP_ID: jellyfish-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '10'
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ env.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Deploy to DigitalOcean App Platform
+        run: |
+          doctl apps create-deployment ${{ env.DIGITALOCEAN_APP_ID }} 
