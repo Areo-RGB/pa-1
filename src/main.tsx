@@ -17,13 +17,16 @@ import './index.css'
 
 // Register service worker for PWA functionality
 const updateSW = registerSW({
+  immediate: true,
   onNeedRefresh() {
-    if (confirm('New content available. Reload?')) {
-      updateSW(true)
-    }
+    // Don't prompt for reload, just store the update for next load
+    updateSW(false)
   },
   onRegistered(registration: ServiceWorkerRegistration) {
-    console.log('SW registered:', registration)
+    // Check for updates every hour instead of on every page load
+    setInterval(() => {
+      registration.update()
+    }, 60 * 60 * 1000)
   },
   onRegisterError(error: Error) {
     console.error('SW registration error:', error)

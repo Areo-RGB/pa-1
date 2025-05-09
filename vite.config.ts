@@ -12,8 +12,10 @@ export default defineConfig({
     TanStackRouterVite(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: 'auto',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      strategies: 'generateSW',
       manifest: {
         name: 'Shadcn Admin',
         short_name: 'ShadcnAdmin',
@@ -44,6 +46,9 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,svg}'],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MB limit
+        cleanupOutdatedCaches: true,
+        clientsClaim: false,
+        skipWaiting: false,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
