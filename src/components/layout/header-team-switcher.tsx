@@ -35,11 +35,11 @@ export function HeaderTeamSwitcher({
     const savedTeamName = localStorage.getItem(SELECTED_TEAM_KEY)
     if (savedTeamName === 'Home') {
       return HOME_TEAM
-    } else if (savedTeamName) {
+    } else if (savedTeamName && teams.length > 0) {
       const savedTeam = teams.find(team => team.name === savedTeamName)
-      return savedTeam || teams[0]
+      return savedTeam || HOME_TEAM
     }
-    return teams[0]
+    return HOME_TEAM
   })
   
   const navigate = useNavigate()
