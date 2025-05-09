@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { AxiosError } from 'axios'
+import { registerSW } from 'virtual:pwa-register'
 import {
   QueryCache,
   QueryClient,
@@ -13,6 +14,21 @@ import { handleServerError } from '@/utils/handle-server-error'
 import { FontProvider } from './context/font-context'
 import { ThemeProvider } from './context/theme-context'
 import './index.css'
+
+// Register service worker for PWA functionality
+const updateSW = registerSW({
+  onNeedRefresh() {
+    if (confirm('New content available. Reload?')) {
+      updateSW(true)
+    }
+  },
+  onRegistered(registration: ServiceWorkerRegistration) {
+    console.log('SW registered:', registration)
+  },
+  onRegisterError(error: Error) {
+    console.error('SW registration error:', error)
+  }
+})
 // Generated Routes
 import { routeTree } from './routeTree.gen'
 

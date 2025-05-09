@@ -1,4 +1,4 @@
-import * as React from 'react'
+import 'react'
 import { Download } from 'lucide-react'
 import {
   SidebarMenu,
@@ -13,6 +13,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { toast } from 'sonner'
+import { usePWAInstall } from '@/hooks/use-pwa-install'
 
 // Platform detection utilities
 const getPlatform = () => {
@@ -76,58 +77,12 @@ const getInstallBenefits = () => {
 
 // Check if the app is installable (has a beforeinstallprompt event)
 export function PWAInstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = React.useState<any>(null)
-  const [, setIsInstallable] = React.useState(false)
+  const { isInstallable, installApp } = usePWAInstall()
   const { isMobile } = useSidebar()
 
-  // Listen for the beforeinstallprompt event
-  React.useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
-      // Prevent the mini-infobar from appearing on mobile
-      e.preventDefault()
-      // Stash the event so it can be triggered later
-      setDeferredPrompt(e)
-      // Update UI to notify the user they can install the PWA
-      setIsInstallable(true)
-    }
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-
-    // Check if the app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setIsInstallable(false)
-    }
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-    }
-  }, [])
-
   const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      try {
-        // Show the install prompt
-        deferredPrompt.prompt()
-        
-        // Wait for the user to respond to the prompt
-        const { outcome } = await deferredPrompt.userChoice
-        
-        // We've used the prompt, and can't use it again, discard it
-        setDeferredPrompt(null)
-        
-        if (outcome === 'accepted') {
-          toast.success('App installed successfully!')
-        } else {
-          // Show benefits to encourage installation
-          toast.info(getInstallBenefits(), {
-            duration: 5000
-          })
-        }
-      } catch (error) {
-        console.error('Install prompt error:', error)
-        toast.error('Installation failed. Please try manual installation.')
-      }
-    } else {
+    const wasInstalled = await installApp()
+    if (!wasInstalled) {
       // Show platform-specific installation instructions with benefits
       toast.info(getInstallInstructions(), {
         description: getInstallBenefits(),
@@ -137,6 +92,10 @@ export function PWAInstallPrompt() {
   }
 
   // Always render the button, regardless of installability
+  if (!isInstallable) {
+    return null
+  }
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
