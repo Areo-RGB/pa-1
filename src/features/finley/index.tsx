@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/header'
 import { ThemeSwitch } from '@/components/theme-switch'
 
 export default function Finley() {
-  const [showExpandableCard, setShowExpandableCard] = useState(true);
+  const [showExpandableCard] = useState(true);
 
   let currentCardsData: CardData[] = finleyCardData;
   let currentThemeColor: "green" = "green";

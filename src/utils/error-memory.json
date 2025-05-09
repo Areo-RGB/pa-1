@@ -6,7 +6,14 @@
       "context": "When a React component unexpectedly renders nothing",
       "solution": "Check if the component is receiving the expected props and verify conditional rendering logic",
       "timestamp": "2023-10-01T12:34:56Z"
+    },
+    {
+      "id": "err-002",
+      "description": "TypeScript error TS6133: Variable is declared but its value is never read.",
+      "context": "This error occurs when a variable is declared (e.g., using const, let, or var, or as a useState setter) but never used or assigned a new value within its scope.",
+      "solution": "Remove the unused variable declaration. If it's a useState setter that's unused, remove it from the destructuring assignment: e.g. `const [myState, setMyState] = useState(initialValue)` becomes `const [myState] = useState(initialValue)` if `setMyState` is not used.",
+      "timestamp": "2024-07-27T22:30:00Z"
     }
   ],
-  "lastUpdated": "2023-10-01T12:34:56Z"
+  "lastUpdated": "2024-07-27T22:30:00Z"
 } 

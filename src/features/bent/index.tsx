@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/header'
 import { ThemeSwitch } from '@/components/theme-switch'
 
 export default function Bent() {
-  const [showExpandableCard, setShowExpandableCard] = useState(true);
+  const [showExpandableCard] = useState(true);
 
   let currentCardsData: CardData[] = bentCardData;
   let currentThemeColor: "blue" = "blue";
