@@ -104,7 +104,14 @@ export default defineConfig({
   server: {
     port: Number(process.env.PORT) || 3000,
     host: true,
-    strictPort: true
+    strictPort: true,
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Pragma': 'no-cache'
+    },
+    watch: {
+      usePolling: true
+    }
   },
   resolve: {
     alias: {
