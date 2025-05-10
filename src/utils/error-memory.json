@@ -13,7 +13,14 @@
       "context": "This error occurs when a variable is declared (e.g., using const, let, or var, or as a useState setter) but never used or assigned a new value within its scope.",
       "solution": "Remove the unused variable declaration. If it's a useState setter that's unused, remove it from the destructuring assignment: e.g. `const [myState, setMyState] = useState(initialValue)` becomes `const [myState] = useState(initialValue)` if `setMyState` is not used.",
       "timestamp": "2024-07-27T22:30:00Z"
+    },
+    {
+      "id": "err-003",
+      "description": "Constant refreshing on mobile and PWA",
+      "context": "Application refreshes constantly (every second) on mobile devices and when installed as a PWA, making it unusable.",
+      "solution": "1) Set PWA registration's immediate to false and increase update interval, 2) Disable React Query's refetchOnWindowFocus, 3) Increase staleTime, 4) Optimize service worker to properly handle caching with differentiated strategies for static assets vs dynamic content.",
+      "timestamp": "2024-09-30T15:45:00Z"
     }
   ],
-  "lastUpdated": "2024-07-27T22:30:00Z"
+  "lastUpdated": "2024-09-30T15:45:00Z"
 } 

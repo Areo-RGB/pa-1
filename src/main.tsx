@@ -17,16 +17,18 @@ import './index.css'
 
 // Register service worker for PWA functionality
 const updateSW = registerSW({
-  immediate: true,
+  immediate: false,
   onNeedRefresh() {
-    // Don't prompt for reload, just store the update for next load
-    updateSW(false)
+    // Only apply update silently if in standalone mode (PWA)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      updateSW(false)
+    }
   },
   onRegistered(registration: ServiceWorkerRegistration) {
-    // Check for updates every hour instead of on every page load
+    // Check for updates daily instead of every hour
     setInterval(() => {
       registration.update()
-    }, 60 * 60 * 1000)
+    }, 24 * 60 * 60 * 1000)
   },
   onRegisterError(error: Error) {
     console.error('SW registration error:', error)
@@ -50,8 +52,8 @@ const queryClient = new QueryClient({
           [401, 403].includes(error.response?.status ?? 0)
         )
       },
-      refetchOnWindowFocus: import.meta.env.PROD,
-      staleTime: 10 * 1000, // 10s
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
     },
     mutations: {
       onError: (error) => {

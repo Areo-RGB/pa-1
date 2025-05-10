@@ -39,35 +39,63 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache if available, otherwise fetch and cache
+// Fetch event - network-first strategy with controlled caching
 self.addEventListener('fetch', (event) => {
+  // Only handle GET requests
   if (event.request.method !== 'GET') return;
   
   // Skip non-HTTP(S) requests
   if (!event.request.url.startsWith('http')) return;
   
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        
-        return fetch(event.request.clone())
-          .then((response) => {
-            // Cache only successful responses
-            if (!response || response.status !== 200 || response.type !== 'basic') {
+  // Skip API requests to prevent caching dynamic data unless offline
+  if (event.request.url.includes('/api/')) {
+    event.respondWith(
+      fetch(event.request)
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+  
+  // For assets and static content, use cache-first approach
+  if (event.request.url.includes('/assets/') || 
+      event.request.url.includes('/images/') ||
+      PRECACHE_ASSETS.some(asset => event.request.url.endsWith(asset))) {
+    event.respondWith(
+      caches.match(event.request)
+        .then((cachedResponse) => {
+          return cachedResponse || fetch(event.request)
+            .then((response) => {
+              if (response && response.status === 200) {
+                const responseToCache = response.clone();
+                caches.open(CACHE_NAME)
+                  .then((cache) => {
+                    cache.put(event.request, responseToCache);
+                  });
+              }
               return response;
-            }
-            
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-              
-            return response;
-          });
+            });
+        })
+    );
+    return;
+  }
+  
+  // For all other requests, use network-first approach
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        // Only cache successful responses
+        if (response && response.status === 200) {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME)
+            .then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+        }
+        return response;
+      })
+      .catch(() => {
+        // Fall back to cache if network fails
+        return caches.match(event.request);
       })
   );
 }); 
