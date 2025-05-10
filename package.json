@@ -6,6 +6,10 @@
     "node": "22.x",
     "pnpm": "10.x"
   },
+  "cacheDirectories": [
+    ".pnpm-store",
+    "node_modules"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
